@@ -5,6 +5,10 @@
     <title>Main</title>
 </head>
 <body>
-<p th:text="${session.userName}" style="display: inline"></p>님 안녕하세요^^
+<p th:text="${session.user.name}" style="display: inline"></p>님 안녕하세요^^
+<form action="/member/mypage" method="post">
+    <input type="hidden" name="userId" th:value="${session.user.id}">
+    <input type="submit" value="마이페이지">
+</form>
 </body>
 </html>
