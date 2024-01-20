@@ -46,4 +46,15 @@ public class UserService {
         }
         return userDTOList;
     }
+
+    public UserDTO find(Long id) {
+        Optional<UserEntity> myEntity = userRepository.findById(id);
+        if(myEntity.isPresent()){
+            UserEntity userEntity = myEntity.get();
+            return UserDTO.toUserDTO(userEntity);
+        } else {
+            return null;
+        }
+
+    }
 }

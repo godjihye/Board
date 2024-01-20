@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 500px;
+      margin: auto;
+    }
+    .row {
+      margin-bottom: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      margin-left: 10px;
+    }
+    .edit-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .edit-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>My Profile</h2>
+  <div class="row">
+    <span class="label">ID:</span>
+    <span class="value" th:text="${user.id}"></span>
+  </div>
+  <div class="row">
+    <span class="label">Login ID:</span>
+    <span class="value" th:text="${user.loginId}"></span>
+    <button class="edit-button" th:onclick="'editLoginId('+${user.id}+')'">Edit</button>
+  </div>
+  <div class="row">
+    <span class="label">Password:</span>
+    <span class="value">****</span>
+    <button class="edit-button" th:onclick="'editLoginPass('+${user.id}+')'">Edit</button>
+  </div>
+  <div class="row">
+    <span class="label">Name:</span>
+    <span class="value" th:text="${user.name}"></span>
+  </div>
+  <div class="row">
+    <span class="label">Nickname:</span>
+    <span class="value" th:text="${user.nickname}"></span>
+    <button class="edit-button" th:onclick="'editNickname('+${user.id}+')'">Edit</button>
+  </div>
+  <div class="row">
+    <span class="label">Email:</span>
+    <span class="value" th:text="${user.email}"></span>
+  </div>
+  <div class="row">
+    <span class="label">Created At:</span>
+    <span class="value" th:text="${user.createdAt}"></span>
+  </div>
+</div>
+
+<script>
+  function editLoginId(id) {
+    // 로그인 ID 수정 로직
+  }
+
+  function editLoginPass(id) {
+    // 비밀번호 수정 로직
+  }
+
+  function editNickname(id) {
+    // 닉네임 수정 로직
+  }
+</script>
+</body>
+</html>
