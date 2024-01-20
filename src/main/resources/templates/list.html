@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+<h2>User List</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Email</th>
+    <th>이름</th>
+    <th>닉네임</th>
+    <th>가입일자</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${userDTOList}">
+    <td th:text="${user.loginId}">로그인아이디</td>
+    <td th:text="${user.email}">이메일</td>
+    <td th:text="${user.name}">이름</td>
+    <td th:text="${user.nickname}">닉네임</td>
+    <td th:text="${user.createdAt}">가입일자</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

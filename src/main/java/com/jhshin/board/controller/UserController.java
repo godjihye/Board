@@ -51,7 +51,7 @@ public class UserController {
     @GetMapping("/member/list")
     public String findAll(Model model){
         List<UserDTO> userDTOList = userService.findAll();
-        model.addAttribute(userDTOList);
+        model.addAttribute("userDTOList",userDTOList);
         return "list";
     }
 }
