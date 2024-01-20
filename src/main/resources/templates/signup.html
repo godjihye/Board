@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+    }
+    form {
+      border: 1px solid #ddd;
+      padding: 20px;
+      background: white;
+      margin-top: 50px;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 10px;
+    }
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<form action="#" th:action="@{/member/register}" method="post">
+  <h2>회원가입</h2>
+  <input type="text" name="loginId" placeholder="아이디" required>
+  <input type="password" name="loginPass" placeholder="비밀번호" required>
+  <input type="email" name="email" placeholder="이메일">
+  <input type="text" name="name" placeholder="성함">
+  <input type="text" name="nickname" placeholder="닉네임">
+  <input type="submit" value="회원가입">
+</form>
+</body>
+</html>
