@@ -19,6 +19,7 @@ public class UserDTO {
     private String name;
     private LocalDate createdAt;
     private String nickname;
+    private String role;
 
     public static UserDTO toUserDTO(UserEntity userEntity) {
         UserDTO dto = new UserDTO();
@@ -29,6 +30,7 @@ public class UserDTO {
         dto.setLoginId(userEntity.getLoginId());
         dto.setLoginPass(userEntity.getLoginPass());
         dto.setCreatedAt(userEntity.getCreatedAt());
+        dto.setRole(userEntity.getRole());
         return dto;
     }
 }

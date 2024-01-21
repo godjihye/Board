@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      margin: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    a:hover {
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>게시글 목록</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>글번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>작성 시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${posts}">
+      <td th:text="${post.id}"></td>
+      <td><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">게시글 제목</a></td>
+      <td th:text="${post.userEntity.name}">작성자</td>
+      <td th:text="${post.createdAt}">작성 시간</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -2,15 +2,18 @@ package com.jhshin.board.entity;
 
 import com.jhshin.board.model.UserDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDate;
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter
 @Table(name = "user_tbl")
+@EntityScan(basePackages = "com.jhshin.board.entity")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +37,9 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
+    private String role;
+
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
         userEntity.setLoginId(userDTO.getLoginId());
@@ -42,7 +48,7 @@ public class UserEntity {
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setNickname(userDTO.getNickname());
         userEntity.setCreatedAt(userDTO.getCreatedAt());
-
+        userEntity.setRole(userDTO.getRole());
         return userEntity;
     }
 

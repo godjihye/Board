@@ -36,10 +36,12 @@
 </head>
 <body>
 <form action="#" th:action="@{/member/login}" method="post">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
   <h2>로그인</h2>
   <input type="text" name="loginId" placeholder="아이디" required>
   <input type="password" name="loginPass" placeholder="비밀번호" required>
   <input type="submit" value="로그인">
+  <a th:href="@{/member/register}" value="아직 회원이 아니신가요?">아직 회원이 아니신가요</a>
 </form>
 </body>
 </html>
