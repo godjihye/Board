@@ -56,8 +56,8 @@
     <tbody>
     <tr th:each="post : ${posts}">
       <td th:text="${post.id}"></td>
-      <td><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">게시글 제목</a></td>
-      <td th:text="${post.userEntity.name}">작성자</td>
+      <td><a th:href="@{/board/{id}(id=${post.id})}" th:text="${post.title}">게시글 제목</a></td>
+      <td th:text="${post.writer.nickname}">작성자</td>
       <td th:text="${post.createdAt}">작성 시간</td>
     </tr>
     </tbody>

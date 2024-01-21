@@ -1,9 +1,13 @@
 package com.jhshin.board.entity;
 
 import com.jhshin.board.model.UserDTO;
+import com.jhshin.board.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 @Builder
@@ -15,6 +19,7 @@ import java.time.LocalDate;
 @Table(name = "user_tbl")
 @EntityScan(basePackages = "com.jhshin.board.entity")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,8 +42,6 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
-    private String role;
 
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
@@ -48,8 +51,8 @@ public class UserEntity {
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setNickname(userDTO.getNickname());
         userEntity.setCreatedAt(userDTO.getCreatedAt());
-        userEntity.setRole(userDTO.getRole());
         return userEntity;
     }
+
 
 }

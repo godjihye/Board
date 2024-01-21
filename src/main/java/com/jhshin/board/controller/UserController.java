@@ -3,6 +3,7 @@ package com.jhshin.board.controller;
 import com.jhshin.board.model.UserDTO;
 import com.jhshin.board.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,12 +24,18 @@ public class UserController {
     @Autowired
     private PasswordEncoder getPasswordEncoder;
 
+    @GetMapping("/welcomeback")
+    public String welcome() {
+        return "user/welcome";
+    }
+
     @GetMapping("/member/loginPage")
     public String loginForm(@RequestParam(value="error", required = false) String error,
                             @RequestParam(value="exception", required = false) String exception,
                             Model model) {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
+        System.out.println("error = " + error + ", exception = " + exception + ", model = " + model);
         return "user/login";
     }
     /*
@@ -71,5 +78,9 @@ public class UserController {
         UserDTO userDTO = userService.find(id);
         model.addAttribute("user", userDTO);
         return "user/mypage";
+    }
+    @GetMapping("/member/logout")
+    public String logout(){
+        return "user/logout";
     }
 }

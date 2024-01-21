@@ -4,6 +4,8 @@ import com.jhshin.board.entity.UserEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class UserDTO {
     private Long id;
     private String loginId;
@@ -30,7 +33,6 @@ public class UserDTO {
         dto.setLoginId(userEntity.getLoginId());
         dto.setLoginPass(userEntity.getLoginPass());
         dto.setCreatedAt(userEntity.getCreatedAt());
-        dto.setRole(userEntity.getRole());
         return dto;
     }
 }

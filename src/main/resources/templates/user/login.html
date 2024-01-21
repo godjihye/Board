@@ -42,6 +42,9 @@
   <input type="password" name="loginPass" placeholder="비밀번호" required>
   <input type="submit" value="로그인">
   <a th:href="@{/member/register}" value="아직 회원이 아니신가요?">아직 회원이 아니신가요</a>
+  <div th:if="${error}">
+    <p id="valid" class="alert alert-danger" th:text="${exception}"></p>
+  </div>
 </form>
 </body>
 </html>

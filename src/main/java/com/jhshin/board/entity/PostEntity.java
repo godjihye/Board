@@ -4,6 +4,7 @@ import com.jhshin.board.model.PostDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "post_tbl")
+@ToString(exclude = "writer")
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +27,11 @@ public class PostEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity userEntity;
+    @JoinColumn
+    private UserEntity writer;
 
     public static PostEntity toPostEntity(PostDTO postDTO) {
         PostEntity post = new PostEntity();
@@ -39,7 +40,8 @@ public class PostEntity {
         post.setContent(postDTO.getContent());
         post.setCreatedAt(postDTO.getCreatedAt());
         post.setUpdatedAt(postDTO.getUpdatedAt());
-        post.setUserEntity(UserEntity.toUserEntity(postDTO.getUserDTO()));
+        post.setWriter(UserEntity.toUserEntity(postDTO.getWriter()));
         return post;
     }
+
 }

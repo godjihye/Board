@@ -16,7 +16,13 @@ public class PostDTO {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private UserDTO userDTO;
+    private UserDTO writer;
+    public UserDTO getUser() {
+        return writer;
+    }
+    public void setWriter(UserDTO writer){
+        this.writer = writer;
+    }
     public static PostDTO toPostDTO(PostEntity postEntity){
         PostDTO postDTO = new PostDTO();
         postDTO.setId(postEntity.getId());
@@ -24,7 +30,8 @@ public class PostDTO {
         postDTO.setContent(postEntity.getContent());
         postDTO.setCreatedAt(postEntity.getCreatedAt());
         postDTO.setUpdatedAt(postEntity.getUpdatedAt());
-        postDTO.setUserDTO(UserDTO.toUserDTO(postEntity.getUserEntity()));
+        postDTO.setWriter(UserDTO.toUserDTO(postEntity.getWriter()));
+
         return postDTO;
     }
 }
