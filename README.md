@@ -12,3 +12,4 @@
 3. MySQL Driver
 4. Thymeleaf
 5. Lombok
+6. Spring Security
