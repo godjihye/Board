@@ -35,8 +35,7 @@ public class PostController {
                           @RequestParam("content")String content,
                           Principal principal){
         if (title == null || content == null) {
-            // 유효하지 않은 입력 처리
-            return "redirect:/errorPage";
+            return "redirect:";
         }
         PostDTO postDTO = new PostDTO();
         postDTO.setTitle(title);
@@ -44,23 +43,51 @@ public class PostController {
         postDTO.setContent(content);
         postDTO.setCreatedAt(LocalDateTime.now());
         postDTO.setWriter(UserDTO.toUserDTO(userService.getUser(principal.getName())));
-
         System.out.println(postDTO.getContent());
-        postService.add(postDTO);
-        return "/board";
+        postService.addPost(postDTO);
+        return "redirect:/board";
     }
 
     @GetMapping("/board")
     public String findAllPosts(Model model){
-        List<PostDTO> postList = postService.findAll();
+        List<PostDTO> postList = postService.findAllPosts();
         model.addAttribute("posts", postList);
         return "post/list";
     }
 
     @GetMapping("/board/{id}")
     public String findPost(@PathVariable Long id, Model model){
-        PostDTO post = postService.find(id);
+        PostDTO post = postService.findPost(id);
         model.addAttribute("post", post);
         return "post/view";
+    }
+
+    @PostMapping("/board/delete")
+    @PreAuthorize("isAuthenticated()")
+    public String removePost(@RequestParam(value = "id") String postId) {
+        postService.removePost(Long.parseLong(postId));
+        return "redirect:/board";
+    }
+    @GetMapping("/board/edit/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String editPostForm(@PathVariable Long id, Model model) {
+        PostDTO post = postService.findPost(id);
+        model.addAttribute("post", post);
+        return "post/editForm";
+    }
+
+
+    @PostMapping("/board/edit")
+    public String editPost(@RequestParam(value = "id")String postId,
+                           @RequestParam(value = "title")String title,
+                           @RequestParam(value = "content") String content) {
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(Long.parseLong(postId));
+        postDTO.setTitle(title);
+        postDTO.setContent(content);
+        postDTO.setUpdatedAt(LocalDateTime.now());
+        postService.editPost(postDTO);
+
+        return "redirect:/board";
     }
 }

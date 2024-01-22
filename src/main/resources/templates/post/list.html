@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>게시글 목록</title>
@@ -23,7 +23,7 @@
     th, td {
       border: 1px solid #ddd;
       padding: 8px;
-      text-align: left;
+      text-align: center;
     }
     th {
       background-color: #4CAF50;
@@ -39,16 +39,30 @@
     a:hover {
       color: #4CAF50;
     }
+    .top-nav {
+      padding: 20px;
+      width: 90%;
+      text-align: right;
+    }
+    h2 {
+      text-align: center;
+    }
   </style>
-</head>
+  </head>
 <body>
+<div class="top-nav">
+  <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+  <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+</div>
 <div class="container">
   <h2>게시글 목록</h2>
+  <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인 후에 글을 작성할 수 있어요.</a>
+  <a sec:authorize="isAuthenticated()" th:href="@{/board/write}" style="text-align: right">글쓰기</a>
   <table>
     <thead>
     <tr>
       <th>글번호</th>
-      <th>제목</th>
+      <th style="width: 60%">제목</th>
       <th>작성자</th>
       <th>작성 시간</th>
     </tr>
@@ -58,7 +72,7 @@
       <td th:text="${post.id}"></td>
       <td><a th:href="@{/board/{id}(id=${post.id})}" th:text="${post.title}">게시글 제목</a></td>
       <td th:text="${post.writer.nickname}">작성자</td>
-      <td th:text="${post.createdAt}">작성 시간</td>
+      <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">작성 시간</td>
     </tr>
     </tbody>
   </table>

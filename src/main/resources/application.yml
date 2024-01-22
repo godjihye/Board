@@ -11,6 +11,7 @@ spring:
   thymeleaf:
     cache: false
 
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false

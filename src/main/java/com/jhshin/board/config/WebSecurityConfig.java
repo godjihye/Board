@@ -32,7 +32,7 @@ public class WebSecurityConfig {
         http
                 // 권한 설정
                 .authorizeHttpRequests((authorizeHttpRequest) -> authorizeHttpRequest
-                        .requestMatchers("/", "/board/", "/member/register").permitAll()
+                        .requestMatchers("/", "/board/**", "/member/register").permitAll()
                         .requestMatchers("/member/list").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -44,13 +44,14 @@ public class WebSecurityConfig {
                         .usernameParameter("loginId")
                         .passwordParameter("loginPass")
                         .failureHandler(customFailureHandler)
-                        .defaultSuccessUrl("/welcomeback")
+                        .defaultSuccessUrl("/board", true)
                         .permitAll()
                 )
                 // 로그아웃 설정
                 .logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                        .logoutSuccessUrl("/member/login").invalidateHttpSession(true));
+                        .logoutSuccessUrl("/board").invalidateHttpSession(true));
 
         return http.build();
     }
+
 }

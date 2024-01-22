@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>글 작성</title>
@@ -13,7 +13,7 @@
       background-color: white;
       padding: 20px;
       border-radius: 8px;
-      width: 500px;
+      width: 80%;
       margin: auto;
     }
     form {
@@ -40,9 +40,26 @@
     input[type="submit"]:hover {
       background-color: #45a049;
     }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    a:hover {
+      color: #4CAF50;
+    }
+    .top-nav {
+      padding: 20px;
+      width: 90%;
+      margin: 10px;
+      text-align: right;
+    }
   </style>
 </head>
 <body>
+<div class="top-nav">
+  <a th:href="@{/board}">목록</a>
+  <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+</div>
 <div class="container">
   <h2>글 작성</h2>
   <form action="/board/write" method="post">

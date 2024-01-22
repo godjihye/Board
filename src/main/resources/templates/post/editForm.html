@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 수정</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      margin: auto;
+    }
+    .post-details {
+      border: none;
+      margin-top: 20px;
+    }
+    .post-title input,
+    .post-content textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .post-content textarea {
+      height: 200px; /* textarea 높이 조절 */
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    .top-nav {
+      padding: 20px;
+      width: 90%;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .top-nav a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<form action="#" th:action="@{/board/edit}" method="post">
+  <div class="top-nav">
+    <a th:href="@{/board}">목록</a>
+  </div>
+  <div class="container">
+    <div class="post-details">
+      <div class="post-title">
+        <input type="text" id="postTitle" name="title" th:value="${post.title}"/>
+      </div>
+      <div class="post-meta">
+        <span th:text="${post.writer.nickname}">작성자</span> |
+        <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">작성 시간</span>
+      </div>
+      <div class="post-content">
+        <textarea name="content" id="postContent" th:text="${post.content}"></textarea>
+      </div>
+      <input type="hidden" name="id" th:value="${post.id}"/>
+      <input type="submit" value="완료" class="button">
+    </div>
+  </div>
+</form>
+</body>
+</html>
