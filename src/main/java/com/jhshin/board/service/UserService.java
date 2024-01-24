@@ -3,13 +3,10 @@ package com.jhshin.board.service;
 import com.jhshin.board.entity.UserEntity;
 import com.jhshin.board.model.UserDTO;
 import com.jhshin.board.repository.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,7 +24,6 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-
     public UserDTO login(UserDTO userDTO) {
         Optional<UserEntity> loginId = userRepository.findByLoginId(userDTO.getLoginId());
         if(loginId.isPresent()){
@@ -44,7 +40,6 @@ public class UserService {
             return null;
         }
     }
-
 
     public List<UserDTO> findAll() {
         List<UserEntity> userEntityList = userRepository.findAll();
@@ -67,20 +62,15 @@ public class UserService {
     }
 
     public UserEntity getUser(String name) {
+        // return userRepository.findByLoginId(name).orElseThrow(()->new UsernameNotFoundException("사용자를 찾을 수 없음"));
 
-        return userRepository.findByLoginId(name).orElseThrow(()->new UsernameNotFoundException("사용자를 찾을 수 없음"));
-        /*
         Optional<UserEntity> user= userRepository.findByLoginId(name);
         if(user.isPresent()) {
-            //optional 객체에서 return-> optional 객체가 담고있었던 원래 데이터 형태
             System.out.println("user.get(): "+ user.get());
             userRepository.save(user.get());
             return user.get();
         }
         System.out.println(name + "인 객체 UserEntity를 가져오지 못했습니다.");
         return null;
-        */
-
     }
-
 }

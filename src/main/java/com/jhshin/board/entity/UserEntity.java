@@ -1,13 +1,9 @@
 package com.jhshin.board.entity;
 
 import com.jhshin.board.model.UserDTO;
-import com.jhshin.board.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 @Builder
@@ -42,7 +38,6 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
         userEntity.setLoginId(userDTO.getLoginId());
@@ -53,6 +48,4 @@ public class UserEntity {
         userEntity.setCreatedAt(userDTO.getCreatedAt());
         return userEntity;
     }
-
-
 }

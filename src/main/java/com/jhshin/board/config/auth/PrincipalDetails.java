@@ -1,18 +1,13 @@
 package com.jhshin.board.config.auth;
 
-import com.jhshin.board.entity.UserEntity;
 import com.jhshin.board.model.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class PrincipalDetails implements UserDetails {
-    private PasswordEncoder passwordEncoder;
     private UserDTO userDTO;
     public PrincipalDetails(UserDTO userDTO){
         this.userDTO = userDTO;

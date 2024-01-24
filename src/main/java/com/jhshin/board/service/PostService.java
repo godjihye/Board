@@ -3,11 +3,8 @@ package com.jhshin.board.service;
 import com.jhshin.board.entity.PostEntity;
 import com.jhshin.board.entity.UserEntity;
 import com.jhshin.board.model.PostDTO;
-import com.jhshin.board.model.UserDTO;
 import com.jhshin.board.repository.PostRepository;
 import com.jhshin.board.repository.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -50,9 +47,7 @@ public class PostService {
 
     public void removePost(Long postId) {
         Optional<PostEntity> postEntity = postRepository.findById(postId);
-        if(postEntity.isPresent()){
-            postRepository.delete(postEntity.get());
-        }
+        postEntity.ifPresent(postRepository::delete);
     }
 
     public void editPost(PostDTO postDTO) {
@@ -64,6 +59,6 @@ public class PostService {
             editPost.setUpdatedAt(postDTO.getUpdatedAt());
             postRepository.save(editPost);
         }
-        System.out.println("수정할 post를 찾지 못했습니다.");
     }
+
 }

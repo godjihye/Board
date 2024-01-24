@@ -31,7 +31,6 @@ public class PostDTO {
         postDTO.setCreatedAt(postEntity.getCreatedAt());
         postDTO.setUpdatedAt(postEntity.getUpdatedAt());
         postDTO.setWriter(UserDTO.toUserDTO(postEntity.getWriter()));
-
         return postDTO;
     }
 }

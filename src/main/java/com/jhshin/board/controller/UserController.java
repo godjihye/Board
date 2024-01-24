@@ -2,14 +2,13 @@ package com.jhshin.board.controller;
 
 import com.jhshin.board.model.UserDTO;
 import com.jhshin.board.service.UserService;
-import jakarta.servlet.http.HttpSession;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +20,7 @@ import static java.time.LocalDate.now;
 public class UserController {
 
     private final UserService userService;
+
     @Autowired
     private PasswordEncoder getPasswordEncoder;
 
@@ -38,6 +38,8 @@ public class UserController {
         System.out.println("error = " + error + ", exception = " + exception + ", model = " + model);
         return "user/login";
     }
+
+    // 로그인 -> Spring Security에 맡김.
     /*
     @PostMapping("/member/login")
     public String login(@ModelAttribute UserDTO userDTO, HttpSession session) {
@@ -50,13 +52,17 @@ public class UserController {
         }
     }
     */
+
     @GetMapping("/member/register")
     public String signupForm() {
         return "user/signup";
     }
 
     @PostMapping("/member/register")
-    public String signup(@ModelAttribute UserDTO userDTO) {
+    public String signup(@ModelAttribute @Valid UserDTO userDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "member/register";
+        }
         userDTO.setCreatedAt(now());
         String encPass = getPasswordEncoder.encode(userDTO.getLoginPass());
         userDTO.setLoginPass(encPass);
@@ -74,11 +80,11 @@ public class UserController {
 
     @PostMapping("/member/mypage")
     public String findUser(@RequestParam("userId") Long id, Model model){
-        System.out.println("id = " + id + ", model = " + model);
         UserDTO userDTO = userService.find(id);
         model.addAttribute("user", userDTO);
         return "user/mypage";
     }
+
     @GetMapping("/member/logout")
     public String logout(){
         return "user/logout";
